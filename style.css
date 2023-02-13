@@ -1,0 +1,233 @@
+#game div {
+    border: 1px solid black;
+    width: 15%;
+    height: 200px;
+    margin: 10px;
+    display: inline-block;
+  }
+
+
+/* ------------------------- */
+/* Custom properties */
+/* ------------------------- */
+
+:root {
+  --clr-orange: hsl(37, 98%, 54%);
+
+  --clr-blue-800: hsl(206, 45%, 15%);
+  --clr-blue-700: hsl(205, 30%, 27%);
+  --clr-blue-600: hsl(203, 22%, 55%);
+  --clr-blue-500: hsl(205, 37%, 55%);
+  --clr-blue-400: hsl(203, 28%, 79%);
+
+  --clr-light-gray: hsl(0, 0%, 95%);
+  --clr-white: hsl(0, 0%, 99%);
+
+  --ff-main: 'Atkinson Hyperlegible', sans-serif;
+
+  --fs-900: 3.5rem; /* 56px */
+  --fs-800: 3rem; /* 48px */
+  --fs-700: 2.75rem; /* 44px */
+  --fs-600: 2.5rem; /* 40px */
+  --fs-500: 2rem; /* 32px */
+  --fs-400: 1.625rem; /* 26px */
+  --fs-350: 1.5rem; /* 24px */
+  --fs-300: 1.25rem; /* 20px */
+  --fs-200: 1rem; /* 16px */
+  --fs-100: 0.9375rem; /* 15px */
+
+  --fw-bold: 700;
+}
+
+/* Tablets */
+/* @media (min-width: 35em) {
+  :root {
+  }
+} */
+
+/* Desktop */
+/* @media (min-width: 45em) {
+  :root {
+  }
+} */
+
+
+/* ------------------------- */
+/* CSS reset */
+/* Credit: https://www.joshwcomeau.com/css/custom-css-reset/ */
+/* ------------------------- */
+
+/* Use a more-intuitive box-sizing model */
+*, 
+*::before, 
+*::after {
+    box-sizing: border-box;
+}
+
+/* Set default font size to user's preferences to allow for proper rem/em sizing */
+:root {
+    font-size: 100%;
+}
+
+/* Remove default margin*/
+* {
+    margin: 0;
+}
+
+/* Allow percentage-based heights in the application */
+html, body {
+    height: 100%;
+}
+
+/* Typographic tweaks! Add accessible line-height, improve text rendering */
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+/* Improve media defaults */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Remove default styling on a */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove built-in form typography styles */
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* Avoid text overflows and set default font-weight */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    line-height: var(--lh-sm);    
+}
+
+/* Removes left padding on unordered lists */
+ul {
+    padding-left: 0;
+}
+
+/* Removes list style from li elements */
+li {
+    list-style: none;
+}
+
+/* Smaller line height for larger font sizes */
+h1, h2, h3 {
+    line-height: 1.1;
+}
+
+/* Remove animations for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ------------------------- */
+/* Utility classes */
+/* ------------------------- */
+
+/* general */ 
+.flex {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* screen reader only, visually hides content for sighted users, but keep
+that content in the page so that users with assisted technologies can see
+more descriptive text  */ 
+.sr-only { 
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
+}
+
+/* colors */
+.bg-blue-800 { background-color: var(--clr-blue-800);}
+.bg-white { background-color: var(--clr-white);}
+
+.text-blue-600 {color: var(--clr-blue-600);}
+.text-white {color: var(--clr-white);}
+
+ /* typography */
+.ff-body { font-family: var(--ff-body);}
+
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+
+.fw-bold {font-weight: var(--fw-bold);}
+
+/* buttons */
+.modal__button {
+  background: var(--clr-blue-400);
+  color: var(--clr-white);
+  font-size: var(--fs-200);
+  border-radius: 20px;
+  border: none;
+  padding: 0.5rem 1.75rem;
+}
+
+
+ 
+/* ------------------------- */
+/* General styling */
+/* ------------------------- */
+
+body {
+  font-family: var(--ff-main);
+  font-weight: var(--fw-bold);
+  padding-inline: 1.5rem;
+}
+
+.headline {
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.modal {
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.modal__section {
+  padding-bottom: 1.5rem;
+}
+
+.modal__button-theme {
+  padding-inline: 2rem;
+}
+
+.modal__button-size, .modal__button-start {
+  padding-inline: 3rem;
+}
+
+.modal__button-start {
+  background: var(--clr-orange);
+  padding-inline: 4rem;
+}
+
+.modal__headline {
+  margin-bottom: 1rem;
+  color: var(--clr-blue-600);
+  font-size: var(--fs-100);
+}
