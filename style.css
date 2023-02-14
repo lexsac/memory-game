@@ -1,12 +1,3 @@
-#game div {
-    border: 1px solid black;
-    width: 15%;
-    height: 200px;
-    margin: 10px;
-    display: inline-block;
-  }
-
-
 /* ------------------------- */
 /* Custom properties */
 /* ------------------------- */
@@ -19,6 +10,7 @@
   --clr-blue-600: hsl(203, 22%, 55%);
   --clr-blue-500: hsl(205, 37%, 55%);
   --clr-blue-400: hsl(203, 28%, 79%);
+  --clr-blue-300: hsl(203, 25%, 90%);
 
   --clr-light-gray: hsl(0, 0%, 95%);
   --clr-white: hsl(0, 0%, 99%);
@@ -146,6 +138,11 @@ h1, h2, h3 {
   gap: 0.5rem;
 }
 
+.grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
 /* screen reader only, visually hides content for sighted users, but keep
 that content in the page so that users with assisted technologies can see
 more descriptive text  */ 
@@ -164,7 +161,9 @@ more descriptive text  */
 /* colors */
 .bg-blue-800 { background-color: var(--clr-blue-800);}
 .bg-white { background-color: var(--clr-white);}
+.bg-orange { background-color: var(--clr-orange);}
 
+.text-blue-800 {color: var(--clr-blue-800);}
 .text-blue-600 {color: var(--clr-blue-600);}
 .text-white {color: var(--clr-white);}
 
@@ -177,13 +176,13 @@ more descriptive text  */
 .fw-bold {font-weight: var(--fw-bold);}
 
 /* buttons */
-.modal__button {
+.button {
   background: var(--clr-blue-400);
   color: var(--clr-white);
   font-size: var(--fs-200);
   border-radius: 20px;
   border: none;
-  padding: 0.5rem 1.75rem;
+  /* padding: 0.5rem 1.75rem; */
 }
 
 
@@ -199,8 +198,8 @@ body {
 }
 
 .headline {
-  margin-top: 4rem;
-  margin-bottom: 3rem;
+  /* margin-top: 4rem;
+  margin-bottom: 3rem; */
   text-align: center;
 }
 
@@ -226,8 +225,64 @@ body {
   padding-inline: 4rem;
 }
 
+.button__menu {
+  background: var(--clr-orange);
+  padding: 0.5rem 1.25rem;;
+}
+
 .modal__headline {
   margin-bottom: 1rem;
   color: var(--clr-blue-600);
   font-size: var(--fs-100);
+}
+
+/* ------------------------- */
+/* Gameboard styling */
+/* ------------------------- */
+
+.header__gameboard {
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.headline__title {
+  font-size: 1.5rem;
+}
+
+#game div {
+  background: var(--clr-blue-800);
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  margin: 6px;
+}
+
+.container__game {
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+  color: var(--clr-white);
+  font-size: 2.5rem;
+}
+
+.player__info {
+  justify-content: space-between;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+}
+
+.player__time, .player__moves {
+  background: var(--clr-blue-300);
+  padding: 0.6rem 0;
+  border-radius: 5px;
+}
+
+.player__time > h2, .player__moves > h2 {
+  font-size: var(--fs-100);
+  color: var(--clr-blue-600);
+}
+
+.player__time > p, .player__moves > p {
+  font-size: var(--fs-350);
+  color: var(--clr-blue-700);
 }

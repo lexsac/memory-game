@@ -3,19 +3,19 @@ let cardOne = null;
 let cardTwo = null;
 let cardsFlipped = 0;
 let noClicking = false;
+let moves = 0;
 
 
-const COLORS = [
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple"
+let styles = getComputedStyle(document.documentElement);
+var colorOrange= styles.getPropertyValue('--clr-orange');
+var colorLightBlue= styles.getPropertyValue('--clr-blue-800');
+
+let c = document.documentElement.style.getPropertyValue('--myVariable');
+
+
+const NUMBERS = [
+  1,2,3,4,5,6,7,8,
+  1,2,3,4,5,6,7,8
 ];
 
 // here is a helper function to shuffle an array
@@ -42,18 +42,18 @@ function shuffle(array) {
 }
 
 
-let shuffledColors = shuffle(COLORS);
+let shuffledNumbers = shuffle(NUMBERS);
 
 // this function loops over the array of colors
 // it creates a new div and gives it a class with the value of the color
 // it also adds an event listener for a click for each card
-function createDivsForColors(colorArray) {
-  for (let color of colorArray) {
+function createDivsForNumbers(numberArray) {
+  for (let number of numberArray) {
     // create a new div
     const newDiv = document.createElement("div");
 
     // give it a class attribute for the value we are looping over
-    newDiv.classList.add(color);
+    newDiv.classList.add(number);
 
     // call a function handleCardClick when a div is clicked on
     newDiv.addEventListener("click", handleCardClick);
@@ -75,25 +75,30 @@ function handleCardClick(event) {
   let currentCard = event.target;
 
   currentCard.classList.add('flipped');
-  currentCard.style.backgroundColor = currentCard.classList[0];
+  currentCard.innerText = currentCard.classList[0];
 
   if (!cardOne || !cardTwo) {
     currentCard.classList.add('flipped');
+    currentCard.style.backgroundColor = 'orange';
+
     cardOne = cardOne || currentCard;
     cardTwo = currentCard === cardOne ? null : currentCard;
-    // console.log(cardOne, cardTwo);
   }
 
   if (cardOne && cardTwo) {
     noClicking = true;
+    moves +=1;
 
-    let colorOne = cardOne.classList[0];
-    let colorTwo = cardTwo.classList[0];
-    console.log(colorOne, colorTwo);
+    let numberOne = cardOne.classList[0];
+    let numberTwo = cardTwo.classList[0];
+    // console.log(numberOne, numberTwo);
 
-    if (colorOne === colorTwo) {
+    if (numberOne === numberTwo) {
       console.log('A match!');
       cardsFlipped += 2;
+
+      cardOne.style.backgroundColor = 'var(--clr-blue-400)';
+      cardTwo.style.backgroundColor = 'var(--clr-blue-400)';
 
       cardOne.removeEventListener("click", handleCardClick);
       cardTwo.removeEventListener("click", handleCardClick);
@@ -105,11 +110,14 @@ function handleCardClick(event) {
 
     } else {
       setTimeout(() => {
-        cardOne.style.backgroundColor = "";
-        cardTwo.style.backgroundColor = "";
+        cardOne.innerText = "";
+        cardTwo.innerText = "";
 
         cardOne.classList.remove("flipped");
         cardTwo.classList.remove("flipped");
+
+        cardOne.style.backgroundColor = 'var(--clr-blue-800)';
+        cardTwo.style.backgroundColor = 'var(--clr-blue-800)';
 
         cardOne = null;
         cardTwo = null;
@@ -119,9 +127,9 @@ function handleCardClick(event) {
     }
   }
 
-  if (cardsFlipped === COLORS.length) alert("game over!");
+  if (cardsFlipped === NUMBERS.length) alert("game over!");
 }
 
 
 // when the DOM loads
-createDivsForColors(shuffledColors);
+createDivsForNumbers(shuffledNumbers);
