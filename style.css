@@ -198,11 +198,12 @@ more descriptive text  */
   border: none;
   padding-top: 0.75rem; /* 12px*/ 
   padding-bottom: 0.875rem; /* 14px */
+  text-align: center;
 }
 
 .link-blue {
-  background: var(--clr-blue-400);
-  color: var(--clr-white);
+  background: var(--clr-blue-300);
+  color: var(--clr-blue-700);
 }
 
 .link-orange {
@@ -218,8 +219,8 @@ more descriptive text  */
 /* modal text */
 .modal-headline {
   margin-bottom: 1rem;
-  color: var(--clr-blue-600);
-  font-size: var(--fs-100);
+  color: var(--clr-blue-800);
+  font-size: var(--fs-350);
 }
 
 .modal-info-box {
@@ -246,11 +247,8 @@ body {
 /* Gameboard styling */
 /* ------------------------- */
 
-.header__gameboard {
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
-  margin-bottom: 5rem;
+.game {
+  margin-bottom: 6.375rem;
 }
 
 .game__area {
@@ -302,6 +300,13 @@ body {
 /* Navigation styling */
 /* ------------------------- */
 
+.header__gameboard {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 5rem;
+}
+
 .link-menu {
   padding-inline: 1.15625rem;
   padding-top: 0.625rem;
@@ -311,7 +316,7 @@ body {
 
 /* Mobile nav */
 @media (max-width: 44em) {
-  #modal-container, #end-container {
+  #modal-container {
     position: absolute;
     top: 30%;
     width: 20.4375rem;
@@ -336,17 +341,64 @@ body {
 /* End game modal styling */
 /* ------------------------- */
 
-.game-end__description {
-  color: var(--clr-blue-600);
-  font-size: var(--fs-75);
+#end-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10%;
+  width: 20.4375rem;
+  background: var(--clr-light-gray);
+  padding: 1.5rem;
+  border-radius: 10px;
+  flex-direction: column;
+  z-index: 100;
+} 
+
+#end-container[data-visible="true"] {
+  transform: translateX(0);
+} 
+
+#end-container[data-visible="false"] {
+  transform: translateX(200%);
 }
 
-.game-end__time, .game-end__moves {
+.end-results__description, .end-results__headline {
+  text-align: center;
+}
+
+.end-results__description {
+  color: var(--clr-blue-600);
+  font-size: var(--fs-75);
+  margin-bottom: 1.5rem;
+}
+
+.end-results__time, .end-results__moves {
   font-size: var(--fs-50);
   color: var(--clr-blue-600);
 }
 
-.game-end__time-dyn, .game-end__moves-dyn {
+.end-results__time-dyn, .end-results__moves-dyn {
   font-size: var(--fs-300);
   color: var(--clr-blue-700);
 }
+
+.end-results__links {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.end-results__player-info-time {
+  margin-bottom: 0.5rem;
+}
+
+.end-results__player-info-moves {
+  margin-bottom: 1.5rem;
+}
+
+/* ------------------------- */
+/* Start game modal styling */
+/* ------------------------- */
+
+/* .selected {
+  background: var(--clr-blue-700);
+} */
