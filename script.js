@@ -4,7 +4,28 @@ let cardTwo = null;
 let cardsFlipped = 0;
 let noClicking = false;
 let moves = 0;
+let time = 0;
 
+const playerMoves = document.getElementById("player__moves-dynamic");
+playerMoves.textContent = moves;
+
+const playerTime = document.getElementById("player__time-dynamic");
+
+// updates the clock every second
+setInterval(() => {
+  // increments the time by one second
+  time++;
+
+  // calculates the minutes and seconds
+  const minutes = Math.floor(time / 60).toString().padStart(2, "0");
+  const seconds = (time % 60).toString().padStart(2, "0");
+
+  // formats the time as MM:SS
+  const formattedTime = `${minutes}:${seconds}`;
+
+  // updates the clock display with the formatted time
+  playerTime.textContent = formattedTime;
+}, 1000);
 
 let styles = getComputedStyle(document.documentElement);
 var colorOrange= styles.getPropertyValue('--clr-orange');
@@ -66,8 +87,6 @@ function createDivsForNumbers(numberArray) {
 // click on card one, store the class name of that card
 // click on card two, store the class name of that card 
 // if cardOneColor == cardTwoColor, remove EventListener on both cards
-
-
 function handleCardClick(event) {
   if (noClicking) return;
   if (event.target.classList.contains('flipped')) return;
@@ -87,7 +106,9 @@ function handleCardClick(event) {
 
   if (cardOne && cardTwo) {
     noClicking = true;
-    moves +=1;
+
+    moves ++;
+    playerMoves.textContent = moves;
 
     let numberOne = cardOne.classList[0];
     let numberTwo = cardTwo.classList[0];
@@ -129,7 +150,6 @@ function handleCardClick(event) {
 
   if (cardsFlipped === NUMBERS.length) alert("game over!");
 }
-
 
 // when the DOM loads
 createDivsForNumbers(shuffledNumbers);
