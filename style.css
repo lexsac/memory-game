@@ -27,6 +27,8 @@
   --fs-300: 1.25rem; /* 20px */
   --fs-200: 1rem; /* 16px */
   --fs-100: 0.9375rem; /* 15px */
+  --fs-75: 0.875rem; /* 14px */
+  --fs-50: 0.8125rem; /* 13px */
 
   --fw-bold: 700;
 }
@@ -140,7 +142,24 @@ h1, h2, h3 {
 
 .grid {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.75rem;
+}
+
+.modal {
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+/* applied to body when modals are visible */
+.blurred-background {
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 
 /* screen reader only, visually hides content for sighted users, but keep
@@ -170,26 +189,44 @@ more descriptive text  */
  /* typography */
 .ff-body { font-family: var(--ff-body);}
 
-.uppercase { text-transform: uppercase; }
-.lowercase { text-transform: lowercase; }
-
 .fw-bold {font-weight: var(--fw-bold);}
 
-/* buttons */
-.button {
-  background: var(--clr-blue-400);
-  color: var(--clr-white);
+/* links */
+.link {
   font-size: var(--fs-200);
   border-radius: 20px;
   border: none;
-  /* padding: 0.5rem 1.75rem; */
+  padding-top: 0.75rem; /* 12px*/ 
+  padding-bottom: 0.875rem; /* 14px */
 }
 
-.button:hover, .button:focus {
+.link-blue {
+  background: var(--clr-blue-400);
+  color: var(--clr-white);
+}
+
+.link-orange {
+  background: var(--clr-orange);
+  color: var(--clr-white);
+}
+
+/* .link-blue:hover, .link-blue:focus {
   cursor: pointer;
+  background: var(--clr-blue-500);
+} */
+
+/* modal text */
+.modal-headline {
+  margin-bottom: 1rem;
+  color: var(--clr-blue-600);
+  font-size: var(--fs-100);
 }
 
-
+.modal-info-box {
+  background: var(--clr-blue-300);
+  border-radius: 5px;
+  padding: 1rem;
+}
  
 /* ------------------------- */
 /* General styling */
@@ -205,73 +242,39 @@ body {
   padding-inline: 1.5rem;
 }
 
-.headline {
-  /* margin-top: 4rem;
-  margin-bottom: 3rem; */
-  text-align: center;
-}
-
-.modal {
-  padding: 1.5rem;
-  border-radius: 10px;
-}
-
-.modal__section {
-  padding-bottom: 1.5rem;
-}
-
-.modal__button-theme {
-  padding-inline: 2rem;
-}
-
-.modal__button-size, .modal__button-start {
-  padding-inline: 3rem;
-}
-
-.modal__button-start {
-  background: var(--clr-orange);
-  padding-inline: 4rem;
-}
-
-.button__menu {
-  background: var(--clr-orange);
-  padding: 0.5rem 1.25rem;;
-}
-
-.modal__headline {
-  margin-bottom: 1rem;
-  color: var(--clr-blue-600);
-  font-size: var(--fs-100);
-}
-
 /* ------------------------- */
 /* Gameboard styling */
 /* ------------------------- */
 
 .header__gameboard {
   justify-content: space-between;
+  align-items: center;
   margin-top: 1.5rem;
   margin-bottom: 5rem;
 }
 
-.headline__title {
-  font-size: 1.5rem;
-}
-
-#game div {
-  background: var(--clr-blue-800);
-  border-radius: 50%;
-  width: 100%;
-  aspect-ratio: 1;
-  margin: 6px;
-}
-
-.container__game {
+.game__area {
   grid-template-columns: repeat(4, 1fr);
   text-align: center;
   color: var(--clr-white);
   font-size: 2.5rem;
 }
+
+.game__area div {
+  background: var(--clr-blue-800);
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.game__area div:hover,
+.game__area div:focus {
+  background: var(--clr-blue-500);
+}
+
+/* ------------------------- */
+/* Player info styling */
+/* ------------------------- */
 
 .player__info {
   justify-content: space-between;
@@ -295,18 +298,22 @@ body {
   color: var(--clr-blue-700);
 }
 
-.selected {
-  background: var(--clr-blue-700);
-}
-
 /* ------------------------- */
 /* Navigation styling */
 /* ------------------------- */
 
+.link-menu {
+  padding-inline: 1.15625rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  border-radius: 26px;
+}
+
 /* Mobile nav */
 @media (max-width: 44em) {
-  #modal-container {
+  #modal-container, #end-container {
     position: absolute;
+    top: 30%;
     width: 20.4375rem;
     margin-inline: auto;
     background: var(--clr-light-gray);
@@ -323,18 +330,23 @@ body {
   #modal-container[data-visible="false"] {
     transform: translateX(200%);
   }
+}
 
-  #button__restart .button {
-    background: var(--clr-orange);
-  }
+/* ------------------------- */
+/* End game modal styling */
+/* ------------------------- */
 
-  .button__new-game, .button__resume {
-    background: var(--clr-blue-300);
-    color: var(--clr-blue-700);
-  }
+.game-end__description {
+  color: var(--clr-blue-600);
+  font-size: var(--fs-75);
+}
 
-  .button__restart {
-    background: var(--clr-orange);
-    color: var(--clr-white);
-  }
+.game-end__time, .game-end__moves {
+  font-size: var(--fs-50);
+  color: var(--clr-blue-600);
+}
+
+.game-end__time-dyn, .game-end__moves-dyn {
+  font-size: var(--fs-300);
+  color: var(--clr-blue-700);
 }

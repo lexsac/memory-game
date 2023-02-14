@@ -19,21 +19,21 @@
 </head>
 <body>
   <header class="header__gameboard | flex">
-    <h1 class="header__title | lowercase text-blue-800">Memory</h1>
-    <button class="button button__menu" id="menu__modal-button">Menu</button>
+    <h1 class="header__title | lowercase text-blue-800">memory</h1>
+    <a href="" class="link-menu | link link-orange" id="menu__modal-button">Menu</a>
 
     <!-- Menu modal -->
     <div class="modal flex" id="modal-container" data-visible="false">
-        <a href="" class="button button__modal button__restart" id="button__restart">Restart</a>
-        <a href="" class="button button__modal button__new-game" id="button__new-game">New Game</a>
-        <a href="" class="button button__modal button__resume" id="button__resume">Resume Game</a>
+        <a href="" class="link link-orange" id="button__restart">Restart</a>
+        <a href="" class="link link-blue" id="button__new-game">New Game</a>
+        <a href="" class="link link-blue" id="button__resume">Resume Game</a>
     </div>
   </header>
 
   <main>
     <section class="game">
       <div class="container" id="start">
-        <div class="container__game | grid" id="game">
+        <div class="game__area | grid" id="game">
         </div>
       </div>
     </section>
@@ -55,20 +55,20 @@
 
     <!-- End game modal -->
     <section class="game-end | modal">
-      <div id="end" data-visible="false">
-        <h1>You win!</h1>
-        <p>Game over! Here's how you got on...</p>
-        <div class="game-end__player-info | flex">
-          <p>Time Elapsed</p>
-          <p id="game-end__time"></p>
+      <div id="game-end-container" data-visible="false">
+        <h1 class="game-end__headline | modal-headline">You win!</h1>
+        <p class="game-end__description | modal-description">Game over! Here's how you got on...</p>
+        <div class="game-end__player-info | flex modal-info-box">
+          <p class="game-end__time">Time Elapsed</p>
+          <p class="game-end__time-dyn" id="game-end__time"></p>
         </div>
-        <div class="game-end__player-info | flex">
-          <p>Moves Taken</p>
-          <p id="game-end__moves"></p>
+        <div class="game-end__player-info | flex modal-info-box">
+          <p class="game-end__moves">Moves Taken</p>
+          <p class="game-end__moves-dyn" id="game-end__moves"></p>
         </div>
         <div class="game-end__links | flex">
-          <a href="" id="restart-button" class="button button__modal button__restart">Restart</a>
-          <a href="" id="button__new-game" class="button button__modal button__new-game">Setup New Game</a>
+          <a href="" id="restart-button" class="link link-orange">Restart</a>
+          <a href="" id="button__new-game" class="link link-blue">Setup New Game</a>
         </div>
       </div>
     </section>
