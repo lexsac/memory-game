@@ -286,3 +286,7 @@ body {
   font-size: var(--fs-350);
   color: var(--clr-blue-700);
 }
+
+.selected {
+  background: var(--clr-blue-700);
+}
