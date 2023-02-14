@@ -20,7 +20,15 @@
 <body>
     <header class="header__gameboard | flex">
       <h1 class="headline__title | lowercase text-blue-800">Memory</h1>
-      <button class="button button__menu">Menu</button>
+      <button class="button button__menu" id="menu__modal-button">Menu</button>
+
+      <!-- Modal menu container -->
+      <div id="modal-container" data-visible="false" class="flex">
+          <button class="button button__modal button__restart">Restart</button>
+          <button id="button__new-game" class="button button__modal button__new-game">New Game</button>
+          <button id="button__resume" class="button button__modal button__resume">Resume Game</button>
+      </div>
+</div>
     </header>
     <div class="container" id="start">
       <div class="container__game | grid" id="game">
