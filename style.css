@@ -31,6 +31,11 @@
   --fs-50: 0.8125rem; /* 13px */
 
   --fw-bold: 700;
+
+  --br-xs: 5px;
+  --br-sm: 10px;
+  --br-med: 20px;
+  --br-lg: 26px;
 }
 
 /* Tablets */
@@ -118,6 +123,11 @@ h1, h2, h3 {
     line-height: 1.1;
 }
 
+/* Hides overflow content on x and y axes */
+body, html {
+  overflow: hidden;
+}
+
 /* Remove animations for people who've turned them off */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -147,7 +157,7 @@ h1, h2, h3 {
 
 .modal {
   padding: 1.5rem;
-  border-radius: 10px;
+  border-radius: var(--br-sm);
 }
 
 /* applied to body when modals are visible */
@@ -194,7 +204,7 @@ more descriptive text  */
 /* links */
 .link {
   font-size: var(--fs-200);
-  border-radius: 20px;
+  border-radius: var(--br-med);
   border: none;
   padding-top: 0.75rem; /* 12px*/ 
   padding-bottom: 0.875rem; /* 14px */
@@ -225,17 +235,13 @@ more descriptive text  */
 
 .modal-info-box {
   background: var(--clr-blue-300);
-  border-radius: 5px;
+  border-radius: var(--br-xs);
   padding: 1rem;
 }
  
 /* ------------------------- */
 /* General styling */
 /* ------------------------- */
-
-body, html {
-  overflow-x: hidden;
-}
 
 body {
   font-family: var(--ff-main);
@@ -270,6 +276,18 @@ body {
   background: var(--clr-blue-500);
 }
 
+.game__area-item.flex {
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 35em) {
+  .game__area {
+    max-width: 33.25rem;
+    margin-inline: auto; 
+  }  
+}
+
 /* ------------------------- */
 /* Player info styling */
 /* ------------------------- */
@@ -283,7 +301,8 @@ body {
 .player__time, .player__moves {
   background: var(--clr-blue-300);
   padding: 0.6rem 0;
-  border-radius: 5px;
+  border-radius: var(--br-xs);
+  flex-direction: column;
 }
 
 .player__time > h2, .player__moves > h2 {
@@ -294,6 +313,25 @@ body {
 .player__time > p, .player__moves > p {
   font-size: var(--fs-350);
   color: var(--clr-blue-700);
+}
+
+@media (min-width: 35em) {
+  .player-info {
+    max-width: 33.25rem;
+    margin-inline: auto; 
+  } 
+
+  .player__info {
+    gap: 2rem;
+  }
+  
+  .player__time, .player__moves {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-radius: var(--br-sm);
+  }
 }
 
 /* ------------------------- */
@@ -311,7 +349,7 @@ body {
   padding-inline: 1.15625rem;
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
-  border-radius: 26px;
+  border-radius: var(--br-lg);
 }
 
 /* Mobile nav */
@@ -323,7 +361,7 @@ body {
     margin-inline: auto;
     background: var(--clr-light-gray);
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: var(--br-sm);
     flex-direction: column;
     z-index: 100;
   } 
@@ -349,16 +387,16 @@ body {
   width: 20.4375rem;
   background: var(--clr-light-gray);
   padding: 1.5rem;
-  border-radius: 10px;
+  border-radius: var(--br-sm);
   flex-direction: column;
   z-index: 100;
 } 
 
-#end-container[data-visible="true"] {
+.end-results[data-visible="true"] {
   transform: translateX(0);
 } 
 
-#end-container[data-visible="false"] {
+.end-results[data-visible="false"] {
   transform: translateX(200%);
 }
 
