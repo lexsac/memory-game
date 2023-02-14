@@ -6,6 +6,39 @@ let noClicking = false;
 let moves = 0;
 let time = 0;
 
+const NUMBERS = [
+  1,2,3,4,5,6,7,8,
+  1,2,3,4,5,6,7,8
+];
+
+
+// mobile menu
+const openModalButton = document.getElementById("menu__modal-button");
+const closeModalButton = document.getElementById("button__resume");
+const newGameModalButton = document.getElementById("button__new-game")
+const modalContainer = document.getElementById("modal-container");
+
+// when the menu button is clicked 
+openModalButton.addEventListener("click", () => {
+  const visiblity = modalContainer.getAttribute("data-visible");
+
+  // if the menu is closed, open it 
+  if (visiblity === "false") {
+      modalContainer.setAttribute("data-visible", true);
+  } 
+})
+
+// when the menu button is clicked 
+closeModalButton.addEventListener("click", () => {
+  const visiblity = modalContainer.getAttribute("data-visible");
+
+  // if the menu is closed, open it 
+  if (visiblity === "true") {
+      modalContainer.setAttribute("data-visible", false);
+  } 
+})
+
+// player time and moves logic 
 const playerMoves = document.getElementById("player__moves-dynamic");
 playerMoves.textContent = moves;
 
@@ -27,21 +60,8 @@ setInterval(() => {
   playerTime.textContent = formattedTime;
 }, 1000);
 
-let styles = getComputedStyle(document.documentElement);
-var colorOrange= styles.getPropertyValue('--clr-orange');
-var colorLightBlue= styles.getPropertyValue('--clr-blue-800');
 
-let c = document.documentElement.style.getPropertyValue('--myVariable');
-
-
-const NUMBERS = [
-  1,2,3,4,5,6,7,8,
-  1,2,3,4,5,6,7,8
-];
-
-// here is a helper function to shuffle an array
-// it returns the same array with values shuffled
-// it is based on an algorithm called Fisher Yates if you want to research more
+// uses Fisher Yates algorithm to return shuffled array
 function shuffle(array) {
   let counter = array.length;
 
@@ -61,9 +81,6 @@ function shuffle(array) {
 
   return array;
 }
-
-
-let shuffledNumbers = shuffle(NUMBERS);
 
 // this function loops over the array of colors
 // it creates a new div and gives it a class with the value of the color
@@ -152,4 +169,5 @@ function handleCardClick(event) {
 }
 
 // when the DOM loads
+let shuffledNumbers = shuffle(NUMBERS);
 createDivsForNumbers(shuffledNumbers);
