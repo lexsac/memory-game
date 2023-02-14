@@ -15,7 +15,7 @@
 
   <title>Frontend Mentor | Memory game</title>
 
-  <script src="script.js" defer></script>
+  <script src="index.js" defer></script>
 </head>
 <body class="bg-blue-800">
   <header>
@@ -26,26 +26,26 @@
       <div class="modal__section">
         <h2 class="modal__headline">Select Theme</h2>
         <ul class="flex">
-          <button class="button modal__button modal__button-theme">Numbers</button>
-          <button class="button modal__button modal__button-theme">Icons</button>
+          <button class="button modal__button modal__button-theme selected" value="numbers">Numbers</button>
+          <button class="button modal__button modal__button-theme" value="icons">Icons</button>
         </ul>
       </div>
 
       <div class="modal__section">
         <h2 class="modal__headline ">Number of Players</h2>
         <ul class="flex">
-          <button class="modal__button">1</button>
-          <button class="button modal__button modal__button-players">2</button>
-          <button class="button modal__button modal__button-players">3</button>
-          <button class="button modal__button modal__button-players">4</button>
+          <button class="button modal__button modal__button-player selected" value="1">1</button>
+          <button class="button modal__button modal__button-player" value="2">2</button>
+          <button class="button modal__button modal__button-player" value="3">3</button>
+          <button class="button modal__button modal__button-player" value="4">4</button>
         </ul>
       </div>
 
       <div class="modal__section">
         <h2 class="modal__headline">Grid Size</h2>
         <ul class="flex">
-          <button class="button modal__button modal__button-size">4x4</button>
-          <button class="button modal__button modal__button-size">6x6</button>
+          <button class="button modal__button modal__button-grid selected" value="4">4x4</button>
+          <button class="button modal__button modal__button-grid" value="6">6x6</button>
         </ul>
       </div>
 
