@@ -18,38 +18,61 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-    <header class="header__gameboard | flex">
-      <h1 class="headline__title | lowercase text-blue-800">Memory</h1>
-      <button class="button button__menu" id="menu__modal-button">Menu</button>
+  <header class="header__gameboard | flex">
+    <h1 class="header__title | lowercase text-blue-800">Memory</h1>
+    <button class="button button__menu" id="menu__modal-button">Menu</button>
 
-      <!-- Modal menu container -->
-      <div id="modal-container" data-visible="false" class="flex">
-          <button class="button button__modal button__restart">Restart</button>
-          <button id="button__new-game" class="button button__modal button__new-game">New Game</button>
-          <button id="button__resume" class="button button__modal button__resume">Resume Game</button>
-      </div>
-</div>
-    </header>
-    <div class="container" id="start">
-      <div class="container__game | grid" id="game">
-      </div>
-
-      <div class="player__info | grid">
-        <div class="player__time">
-          <h2>Time</h2>
-          <p id="player__time-dynamic">00:00</p>
-        </div>
-        <div class="player__moves">
-          <h2>Moves</h2>
-          <p id="player__moves-dynamic"></p>
-        </div>
-      </div>
+    <!-- Menu modal -->
+    <div class="modal flex" id="modal-container" data-visible="false">
+        <a href="" class="button button__modal button__restart" id="button__restart">Restart</a>
+        <a href="" class="button button__modal button__new-game" id="button__new-game">New Game</a>
+        <a href="" class="button button__modal button__resume" id="button__resume">Resume Game</a>
     </div>
-      <!-- <div id="end">
-        <h1>You win!</h1>
-        <h4 id="final-score"></h4>
-        <a href="index.html" id="restart-button" class="">Play again?</a>
+  </header>
+
+  <main>
+    <section class="game">
+      <div class="container" id="start">
+        <div class="container__game | grid" id="game">
+        </div>
       </div>
-    </div> -->
+    </section>
+
+    <section class="player-info">
+      <div class="container" id="start">
+        <div class="player__info | grid">
+          <div class="player__time">
+            <h2>Time</h2>
+            <p id="player__time-dynamic">00:00</p>
+          </div>
+          <div class="player__moves">
+            <h2>Moves</h2>
+            <p id="player__moves-dynamic"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- End game modal -->
+    <section class="game-end | modal">
+      <div id="end" data-visible="false">
+        <h1>You win!</h1>
+        <p>Game over! Here's how you got on...</p>
+        <div class="game-end__player-info | flex">
+          <p>Time Elapsed</p>
+          <p id="game-end__time"></p>
+        </div>
+        <div class="game-end__player-info | flex">
+          <p>Moves Taken</p>
+          <p id="game-end__moves"></p>
+        </div>
+        <div class="game-end__links | flex">
+          <a href="" id="restart-button" class="button button__modal button__restart">Restart</a>
+          <a href="" id="button__new-game" class="button button__modal button__new-game">Setup New Game</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </body>
 </html>
