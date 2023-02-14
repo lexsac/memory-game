@@ -185,11 +185,19 @@ more descriptive text  */
   /* padding: 0.5rem 1.75rem; */
 }
 
+.button:hover, .button:focus {
+  cursor: pointer;
+}
+
 
  
 /* ------------------------- */
 /* General styling */
 /* ------------------------- */
+
+body, html {
+  overflow-x: hidden;
+}
 
 body {
   font-family: var(--ff-main);
@@ -289,4 +297,44 @@ body {
 
 .selected {
   background: var(--clr-blue-700);
+}
+
+/* ------------------------- */
+/* Navigation styling */
+/* ------------------------- */
+
+/* Mobile nav */
+@media (max-width: 44em) {
+  #modal-container {
+    position: absolute;
+    width: 20.4375rem;
+    margin-inline: auto;
+    background: var(--clr-light-gray);
+    padding: 1.5rem;
+    border-radius: 10px;
+    flex-direction: column;
+    z-index: 100;
+  } 
+  
+  #modal-container[data-visible="true"] {
+    transform: translateX(0);
+  } 
+
+  #modal-container[data-visible="false"] {
+    transform: translateX(200%);
+  }
+
+  #button__restart .button {
+    background: var(--clr-orange);
+  }
+
+  .button__new-game, .button__resume {
+    background: var(--clr-blue-300);
+    color: var(--clr-blue-700);
+  }
+
+  .button__restart {
+    background: var(--clr-orange);
+    color: var(--clr-white);
+  }
 }
