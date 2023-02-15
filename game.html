@@ -22,15 +22,15 @@
     <h1 class="header__title | lowercase text-blue-800">memory</h1>
     <button class="header__button-menu | btn btn-orange" id="button__menu">Menu</button>
     <div class="header__button-group flex">
-      <button class="header__button-restart | btn btn-orange" id="button__menu">Restart</button>
-      <button class="header__button-new-game | btn btn-blue" id="button__menu">New Game</button>
+      <button class="header__button-restart | btn btn-orange" id="button__restart">Restart</button>
+      <button class="header__button-new-game | btn btn-blue" id="button__new-game">New Game</button>
     </div>
 
     <!-- Menu modal -->
     <div class="modal flex" id="menu" data-visible="false">
-        <button class="btn btn-orange" id="button__restart">Restart</button>
-        <button class="btn btn-blue" id="button__new-game">New Game</button>
-        <button class="btn btn-blue" id="button__resume">Resume Game</button>
+        <button class="header__button-restart | btn btn-orange" id="button__restart">Restart</button>
+        <button class="header__button-new-game | btn btn-blue" id="button__new-game">New Game</button>
+        <button class="header__button-resume | btn btn-blue" id="button__resume">Resume Game</button>
     </div>
   </header>
 
@@ -65,9 +65,9 @@
         <p class="end-results__moves">Moves Taken</p>
         <p class="end-results__moves-dyn" id="game-end__moves"></p>
       </div>
-      <div class="end-results__links | flex">
-        <a href="" id="button__restart" class="link link-orange">Restart</a>
-        <a href="" id="button__new-game" class="link link-blue">Setup New Game</a>
+      <div class="end-results__btns | flex">
+        <button id="button__restart" class="btn btn-orange">Restart</a>
+        <button id="button__new-game" class="btn btn-blue">Setup New Game</a>
       </div>
     </section>
 
