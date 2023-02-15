@@ -11,55 +11,9 @@ const NUMBERS = [
   1,2,3,4,5,6,7,8
 ];
 
-
-// mobile menu
-const openModalButton = document.getElementById("menu__modal-button");
-const closeModalButton = document.getElementById("button__resume");
-const newGameModalButton = document.getElementById("button__new-game")
-const modalContainer = document.getElementById("modal-container");
-
-// when the menu button is clicked 
-openModalButton.addEventListener("click", () => {
-  const visiblity = modalContainer.getAttribute("data-visible");
-
-  // if the menu is closed, open it 
-  if (visiblity === "false") {
-      modalContainer.setAttribute("data-visible", true);
-  } 
-})
-
-// when the menu button is clicked 
-closeModalButton.addEventListener("click", () => {
-  const visiblity = modalContainer.getAttribute("data-visible");
-
-  // if the menu is closed, open it 
-  if (visiblity === "true") {
-      modalContainer.setAttribute("data-visible", false);
-  } 
-})
-
-// player time and moves logic 
-const playerMoves = document.getElementById("player__moves-dynamic");
-playerMoves.textContent = moves;
-
-const playerTime = document.getElementById("player__time-dynamic");
-
-// updates the clock every second
-setInterval(() => {
-  // increments the time by one second
-  time++;
-
-  // calculates the minutes and seconds
-  const minutes = Math.floor(time / 60).toString().padStart(2, "0");
-  const seconds = (time % 60).toString().padStart(2, "0");
-
-  // formats the time as MM:SS
-  const formattedTime = `${minutes}:${seconds}`;
-
-  // updates the clock display with the formatted time
-  playerTime.textContent = formattedTime;
-}, 1000);
-
+/* 
+// Game logic
+*/
 
 // uses Fisher Yates algorithm to return shuffled array
 function shuffle(array) {
@@ -82,9 +36,8 @@ function shuffle(array) {
   return array;
 }
 
-// this function loops over the array of colors
-// it creates a new div and gives it a class with the value of the color
-// it also adds an event listener for a click for each card
+// loops over array, creating a new div with class equal to number value
+// adds click event listener to each div
 function createDivsForNumbers(numberArray) {
   for (let number of numberArray) {
     // create a new div
@@ -92,6 +45,8 @@ function createDivsForNumbers(numberArray) {
 
     // give it a class attribute for the value we are looping over
     newDiv.classList.add(number);
+    newDiv.classList.add('flex');
+    newDiv.classList.add('game__area-item');
 
     // call a function handleCardClick when a div is clicked on
     newDiv.addEventListener("click", handleCardClick);
@@ -102,8 +57,8 @@ function createDivsForNumbers(numberArray) {
 }
 
 // click on card one, store the class name of that card
-// click on card two, store the class name of that card 
-// if cardOneColor == cardTwoColor, remove EventListener on both cards
+// repeat for card two
+// if cardOneColor === cardTwoColor, remove EventListener on both cards
 function handleCardClick(event) {
   if (noClicking) return;
   if (event.target.classList.contains('flipped')) return;
@@ -165,8 +120,76 @@ function handleCardClick(event) {
     }
   }
 
-  if (cardsFlipped === NUMBERS.length) alert("game over!");
+  if (cardsFlipped === NUMBERS.length) {
+    // end game modal
+    const endGame = document.getElementById("end");
+    // endGame.setAttribute("data-visible", true);
+    // body.classList.add('blurred-background'); 
+
+    // player time and moves logic 
+    const endMoves = document.getElementById("player__end-moves");
+    endMoves.textContent = moves;
+  };
 }
+
+/* 
+// Mobile menu logic
+*/
+
+// mobile menu
+const openModalButton = document.getElementById("menu__modal-button");
+const closeModalButton = document.getElementById("button__resume");
+const newGameModalButton = document.getElementById("button__new-game")
+const modalContainer = document.getElementById("modal-container");
+const body = document.querySelector('body');
+
+// when the menu button is clicked 
+openModalButton.addEventListener("click", () => {
+  const visiblity = modalContainer.getAttribute("data-visible");
+
+  // if the menu is closed, open it 
+  if (visiblity === "false") {
+      modalContainer.setAttribute("data-visible", true);
+      body.classList.add('blurred-background');
+  } 
+})
+
+// when the restart button is clicked 
+closeModalButton.addEventListener("click", () => {
+  const visiblity = modalContainer.getAttribute("data-visible");
+
+  // if the menu is open, close it 
+  if (visiblity === "true") {
+      modalContainer.setAttribute("data-visible", false);
+      body.classList.remove('blurred-background');
+  } 
+})
+
+/* 
+// Player time and number of moves logic
+*/
+
+const playerMoves = document.getElementById("player__moves-dynamic");
+playerMoves.textContent = moves;
+
+const playerTime = document.getElementById("player__time-dynamic");
+
+// updates the clock every second
+setInterval(() => {
+  // increments the time by one second
+  time++;
+
+  // calculates the minutes and seconds
+  const minutes = Math.floor(time / 60).toString().padStart(2, "0");
+  const seconds = (time % 60).toString().padStart(2, "0");
+
+  // formats the time as MM:SS
+  const formattedTime = `${minutes}:${seconds}`;
+
+  // updates the clock display with the formatted time
+  playerTime.textContent = formattedTime;
+}, 1000);
+
 
 // when the DOM loads
 let shuffledNumbers = shuffle(NUMBERS);
