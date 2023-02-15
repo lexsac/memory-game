@@ -20,13 +20,17 @@
 <body>
   <header class="header__gameboard | flex">
     <h1 class="header__title | lowercase text-blue-800">memory</h1>
-    <a href="" class="link-menu | link link-orange" id="button__menu">Menu</a>
+    <button class="header__button-menu | btn btn-orange" id="button__menu">Menu</button>
+    <div class="header__button-group flex">
+      <button class="header__button-restart | btn btn-orange" id="button__menu">Restart</button>
+      <button class="header__button-new-game | btn btn-blue" id="button__menu">New Game</button>
+    </div>
 
     <!-- Menu modal -->
-    <div class="modal flex" id="modal-container" data-visible="false">
-        <a href="" class="link link-orange" id="button__restart">Restart</a>
-        <a href="" class="link link-blue" id="button__new-game">New Game</a>
-        <a href="" class="link link-blue" id="button__resume">Resume Game</a>
+    <div class="modal flex" id="menu" data-visible="false">
+        <button class="btn btn-orange" id="button__restart">Restart</button>
+        <button class="btn btn-blue" id="button__new-game">New Game</button>
+        <button class="btn btn-blue" id="button__resume">Resume Game</button>
     </div>
   </header>
 
