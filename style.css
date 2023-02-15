@@ -162,15 +162,13 @@ body, html {
 }
 
 /* applied to body when modals are visible */
-.blurred-background {
-  backdrop-filter: blur(5px);
+.dark-background {
   background-color: rgba(0, 0, 0, 0.5); 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
 }
 
 /* screen reader only, visually hides content for sighted users, but keep
@@ -244,6 +242,13 @@ more descriptive text  */
   background: var(--clr-blue-300);
   border-radius: var(--br-xs);
   padding: 1rem;
+}
+
+@media (min-width: 35em) {
+  .modal-headline {
+    font-size: var(--fs-800);
+    margin-top: 2.1875rem;
+  }  
 }
  
 /* ------------------------- */
@@ -405,25 +410,26 @@ body {
 /* End game modal styling */
 /* ------------------------- */
 
-#end-container {
+#end {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 10%;
+  margin-inline: auto;
+  left: 0;
+  right: 0;
   width: 20.4375rem;
+  top: 20%;
+  transform: translateY(-200%);
   background: var(--clr-light-gray);
   padding: 1.5rem;
   border-radius: var(--br-sm);
   flex-direction: column;
-  z-index: 100;
 } 
 
-.end-results[data-visible="true"] {
+#end[data-visible="true"] {
   transform: translateX(0);
 } 
 
-.end-results[data-visible="false"] {
-  transform: translateX(200%);
+#end[data-visible="false"] {
+  transform: translateX(100%);
 }
 
 .end-results__description, .end-results__headline {
@@ -451,6 +457,11 @@ body {
   gap: 1rem;
 }
 
+.end-results__player-info {
+  align-items: center;
+  justify-content: space-between;
+}
+
 .end-results__player-info-time {
   margin-bottom: 0.5rem;
 }
@@ -458,6 +469,52 @@ body {
 .end-results__player-info-moves {
   margin-bottom: 1.5rem;
 }
+
+@media (min-width: 35em) {
+  #end {
+    border-radius: var(--br-med);
+    width: 40.875rem;
+    transform: translateY(-150%);
+    padding-inline: 3.5rem;
+  }
+
+  .end-results__description {
+    font-size: var(--fs-250);
+  }
+
+  .end-results__time, .end-results__moves {
+    font-size: var(--fs-250);
+  }
+  
+  .end-results__time-dyn, .end-results__moves-dyn {
+    font-size: var(--fs-500);
+  }
+
+  .end-results__links {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .end-results__player-info {
+    padding-inline: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .end-results__player-info-time {
+    margin-bottom: 1rem;
+  }
+
+  .end-results__player-info-moves {
+    margin-bottom: 2.5rem;
+  }
+
+  .end-results__links {
+    margin-bottom: 2.8125rem;
+  }
+}
+
 
 /* ------------------------- */
 /* Start game modal styling */
