@@ -137,32 +137,56 @@ function handleCardClick(event) {
 */
 
 // mobile menu
-const openModalButton = document.getElementById("menu__modal-button");
-const closeModalButton = document.getElementById("button__resume");
-const newGameModalButton = document.getElementById("button__new-game")
+const openMenuButton = document.getElementById("button__menu");
+const resumeButton = document.getElementById("button__resume");
+const restartButton = document.getElementById("button__restart");
+const newGameButton = document.getElementById("button__new-game")
 const modalContainer = document.getElementById("modal-container");
 const body = document.querySelector('body');
 
 // when the menu button is clicked 
-openModalButton.addEventListener("click", () => {
-  const visiblity = modalContainer.getAttribute("data-visible");
+openMenuButton.addEventListener("click", () => {
+  const visibility = modalContainer.getAttribute("data-visible");
 
   // if the menu is closed, open it 
-  if (visiblity === "false") {
+  if (visibility === "false") {
       modalContainer.setAttribute("data-visible", true);
       body.classList.add('dark-background');
   } 
 })
 
-// when the restart button is clicked 
-closeModalButton.addEventListener("click", () => {
-  const visiblity = modalContainer.getAttribute("data-visible");
+// when the resume button is clicked 
+resumeButton.addEventListener("click", () => {
+  const visibility = modalContainer.getAttribute("data-visible");
 
   // if the menu is open, close it 
-  if (visiblity === "true") {
+  if (visibility === "true") {
       modalContainer.setAttribute("data-visible", false);
       body.classList.remove('blurred-background');
   } 
+})
+
+// when the new game button is clicked 
+newGameButton.addEventListener("click", () => {
+  cardOne = null;
+  cardTwo = null;
+  cardsFlipped = 0;
+  noClicking = false;
+  moves = 0;
+  time = 0;
+
+  let shuffledNumbers = shuffle(NUMBERS);
+  createDivsForNumbers(shuffledNumbers);
+})
+
+// when the restart button is clicked 
+restartButton.addEventListener("click", () => {
+  cardOne = null;
+  cardTwo = null;
+  cardsFlipped = 0;
+  noClicking = false;
+  moves = 0;
+  time = 0;
 })
 
 /* 
