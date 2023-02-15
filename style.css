@@ -388,7 +388,6 @@ body {
     padding: 1.5rem;
     border-radius: var(--br-sm);
     flex-direction: column;
-    z-index: 100;
   } 
   
   #modal-container[data-visible="true"] {
@@ -412,24 +411,24 @@ body {
 
 #end {
   position: absolute;
-  margin-inline: auto;
+  top: 30%;
+  width: 20.4375rem;
   left: 0;
   right: 0;
-  width: 20.4375rem;
-  top: 20%;
-  transform: translateY(-200%);
+  margin-inline: auto;
   background: var(--clr-light-gray);
   padding: 1.5rem;
   border-radius: var(--br-sm);
   flex-direction: column;
-} 
+  /* transform: translateY(-200%); */
+}
 
 #end[data-visible="true"] {
   transform: translateX(0);
 } 
 
 #end[data-visible="false"] {
-  transform: translateX(100%);
+  transform: translateX(200%);
 }
 
 .end-results__description, .end-results__headline {
