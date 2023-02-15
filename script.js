@@ -1,245 +1,254 @@
-const gameContainer = document.getElementById("game");
-let cardOne = null;
-let cardTwo = null;
-let cardsFlipped = 0;
-let noClicking = false;
-let moves = 0;
-let time = 0;
+document.addEventListener("DOMContentLoaded", function() {
+  const gameContainer = document.getElementById("game");
+  let cardOne = null;
+  let cardTwo = null;
+  let cardsFlipped = 0;
+  let noClicking = false;
+  let currentScore = 0;
+  let time = 0;
 
-const NUMBERS = [
-  1,2,3,4,5,6,7,8,
-  1,2,3,4,5,6,7,8
-];
+  const NUMBERS = [
+    1,2,3,4,5,6,7,8,
+    1,2,3,4,5,6,7,8
+  ];
 
-/* 
-// Game logic
-*/
+  /* 
+  // Game logic
+  */
 
-// uses Fisher Yates algorithm to return shuffled array
-function shuffle(array) {
-  let counter = array.length;
+  // uses Fisher Yates algorithm to return shuffled array
+  function shuffle(array) {
+    let counter = array.length;
 
-  // While there are elements in the array
-  while (counter > 0) {
-    // Pick a random index
-    let index = Math.floor(Math.random() * counter);
+    // While there are elements in the array
+    while (counter > 0) {
+      // Pick a random index
+      let index = Math.floor(Math.random() * counter);
 
-    // Decrease counter by 1
-    counter--;
+      // Decrease counter by 1
+      counter--;
 
-    // And swap the last element with it
-    let temp = array[counter];
-    array[counter] = array[index];
-    array[index] = temp;
+      // And swap the last element with it
+      let temp = array[counter];
+      array[counter] = array[index];
+      array[index] = temp;
+    }
+
+    return array;
   }
 
-  return array;
-}
+  // loops over array, creating a new div with class equal to number value
+  // adds click event listener to each div
+  function createDivsForNumbers(numberArray) {
+    for (let number of numberArray) {
+      // create a new div
+      const newDiv = document.createElement("div");
 
-// loops over array, creating a new div with class equal to number value
-// adds click event listener to each div
-function createDivsForNumbers(numberArray) {
-  for (let number of numberArray) {
-    // create a new div
-    const newDiv = document.createElement("div");
+      // give it a class attribute for the value we are looping over
+      newDiv.classList.add(number);
+      newDiv.classList.add('flex');
+      newDiv.classList.add('game__area-item');
 
-    // give it a class attribute for the value we are looping over
-    newDiv.classList.add(number);
-    newDiv.classList.add('flex');
-    newDiv.classList.add('game__area-item');
+      // call a function handleCardClick when a div is clicked on
+      newDiv.addEventListener("click", handleCardClick);
 
-    // call a function handleCardClick when a div is clicked on
-    newDiv.addEventListener("click", handleCardClick);
-
-    // append the div to the element with an id of game
-    gameContainer.append(newDiv);
+      // append the div to the element with an id of game
+      gameContainer.append(newDiv);
+    }
   }
-}
 
-function removeDivsForNumbers() {
-  let numDivs = document.querySelectorAll('.game__area-item');
+  function removeDivsForNumbers() {
+    let numDivs = document.querySelectorAll('.game__area-item');
 
-  for (let div of numDivs) {
-    div.remove();
+    for (let div of numDivs) {
+      div.remove();
+    }
   }
-}
 
-// click on card one, store the class name of that card
-// repeat for card two
-// if cardOneColor === cardTwoColor, remove EventListener on both cards
-function handleCardClick(event) {
-  if (noClicking) return;
-  if (event.target.classList.contains('flipped')) return;
+  function setScore(newScore) {
+    currentScore = newScore;
+    document.getElementById("player__moves-dynamic").innerText = currentScore;
+  }
 
-  let currentCard = event.target;
+  // click on card one, store the class name of that card
+  // repeat for card two
+  // if cardOneColor === cardTwoColor, remove EventListener on both cards
+  function handleCardClick(event) {
+    if (noClicking) return;
+    if (event.target.classList.contains('flipped')) return;
 
-  currentCard.classList.add('flipped');
-  currentCard.innerText = currentCard.classList[0];
+    let currentCard = event.target;
+    let playerScore = document.getElementById('player__moves-dynamic');
 
-  if (!cardOne || !cardTwo) {
     currentCard.classList.add('flipped');
-    currentCard.style.backgroundColor = 'orange';
+    currentCard.innerText = currentCard.classList[0];
 
-    cardOne = cardOne || currentCard;
-    cardTwo = currentCard === cardOne ? null : currentCard;
-  }
+    if (!cardOne || !cardTwo) {
+      currentCard.classList.add('flipped');
+      currentCard.style.backgroundColor = 'orange';
 
-  if (cardOne && cardTwo) {
-    noClicking = true;
+      cardOne = cardOne || currentCard;
+      cardTwo = currentCard === cardOne ? null : currentCard;
+    }
 
-    moves ++;
-    playerMoves.textContent = moves;
+    if (cardOne && cardTwo) {
+      noClicking = true;
 
-    let numberOne = cardOne.classList[0];
-    let numberTwo = cardTwo.classList[0];
-    // console.log(numberOne, numberTwo);
+      currentScore ++;
+      playerScore.textContent = currentScore;
 
-    if (numberOne === numberTwo) {
-      console.log('A match!');
-      cardsFlipped += 2;
+      let numberOne = cardOne.classList[0];
+      let numberTwo = cardTwo.classList[0];
+      // console.log(numberOne, numberTwo);
 
-      cardOne.style.backgroundColor = 'var(--clr-blue-400)';
-      cardTwo.style.backgroundColor = 'var(--clr-blue-400)';
+      if (numberOne === numberTwo) {
+        console.log('A match!');
+        cardsFlipped += 2;
 
-      cardOne.removeEventListener("click", handleCardClick);
-      cardTwo.removeEventListener("click", handleCardClick);
+        cardOne.style.backgroundColor = 'var(--clr-blue-400)';
+        cardTwo.style.backgroundColor = 'var(--clr-blue-400)';
 
-      cardOne = null;
-      cardTwo = null;
-
-      noClicking = false;
-
-    } else {
-      setTimeout(() => {
-        cardOne.innerText = "";
-        cardTwo.innerText = "";
-
-        cardOne.classList.remove("flipped");
-        cardTwo.classList.remove("flipped");
-
-        cardOne.style.backgroundColor = 'var(--clr-blue-800)';
-        cardTwo.style.backgroundColor = 'var(--clr-blue-800)';
+        cardOne.removeEventListener("click", handleCardClick);
+        cardTwo.removeEventListener("click", handleCardClick);
 
         cardOne = null;
         cardTwo = null;
+
         noClicking = false;
 
-      }, 1000);
+      } else {
+        setTimeout(() => {
+          cardOne.innerText = "";
+          cardTwo.innerText = "";
+
+          cardOne.classList.remove("flipped");
+          cardTwo.classList.remove("flipped");
+
+          cardOne.style.backgroundColor = 'var(--clr-blue-800)';
+          cardTwo.style.backgroundColor = 'var(--clr-blue-800)';
+
+          cardOne = null;
+          cardTwo = null;
+          noClicking = false;
+
+        }, 1000);
+      }
     }
+
+    if (cardsFlipped === NUMBERS.length) {
+      // end game modal
+      const endGame = document.getElementById("end");
+      endGame.setAttribute("data-visible", true);
+      body.classList.add('dark-background'); 
+
+      // player time and moves logic 
+      const endMoves = document.getElementById("game-end__moves");
+      endMoves.textContent = moves + ' Moves';
+    };
   }
 
-  if (cardsFlipped === NUMBERS.length) {
-    // end game modal
-    const endGame = document.getElementById("end");
-    endGame.setAttribute("data-visible", true);
-    body.classList.add('dark-background'); 
+  /* 
+  // Player time and number of moves logic
+  */
 
-    // player time and moves logic 
-    const endMoves = document.getElementById("game-end__moves");
-    endMoves.textContent = moves + ' Moves';
-  };
-}
+  const playerScore = document.getElementById("player__moves-dynamic");
+  playerScore.textContent = currentScore;
 
-/* 
-// Player time and number of moves logic
-*/
+  const playerTime = document.getElementById("player__time-dynamic");
 
-const playerMoves = document.getElementById("player__moves-dynamic");
-playerMoves.textContent = moves;
+  // updates the clock every second
+  setInterval(() => {
+    // increments the time by one second
+    time++;
 
-const playerTime = document.getElementById("player__time-dynamic");
+    // calculates the minutes and seconds
+    const minutes = Math.floor(time / 60).toString().padStart(1, "0");
+    const seconds = (time % 60).toString().padStart(2, "0");
 
-// updates the clock every second
-setInterval(() => {
-  // increments the time by one second
-  time++;
+    // formats the time as MM:SS
+    const formattedTime = `${minutes}:${seconds}`;
 
-  // calculates the minutes and seconds
-  const minutes = Math.floor(time / 60).toString().padStart(1, "0");
-  const seconds = (time % 60).toString().padStart(2, "0");
+    // updates the clock display with the formatted time
+    playerTime.textContent = formattedTime;
+  }, 1000);
 
-  // formats the time as MM:SS
-  const formattedTime = `${minutes}:${seconds}`;
+  /* 
+  // Mobile menu logic
+  */
 
-  // updates the clock display with the formatted time
-  playerTime.textContent = formattedTime;
-}, 1000);
+  // mobile menu
+  const openMenuButton = document.getElementById("button__menu");
+  const resumeButton = document.getElementById("button__resume");
+  const restartButton = document.getElementById("button__restart");
+  const newGameButton = document.getElementById("button__new-game")
+  const menuModal = document.getElementById("menu");
+  const body = document.querySelector('body');
 
-/* 
-// Mobile menu logic
-*/
+  // when the menu button is clicked 
+  openMenuButton.addEventListener("click", () => {
+    const visibility = menuModal.getAttribute("data-visible");
 
-// mobile menu
-const openMenuButton = document.getElementById("button__menu");
-const resumeButton = document.getElementById("button__resume");
-const restartButton = document.getElementById("button__restart");
-const newGameButton = document.getElementById("button__new-game")
-const menuModal = document.getElementById("menu");
-const body = document.querySelector('body');
+    // if the menu is closed, open it 
+    if (visibility === "false") {
+        menuModal.setAttribute("data-visible", true);
+        body.classList.add('dark-background');
+    } 
+  })
 
-// when the menu button is clicked 
-openMenuButton.addEventListener("click", () => {
-  const visibility = menuModal.getAttribute("data-visible");
+  // when the resume button is clicked 
+  resumeButton.addEventListener("click", () => {
+    const visibility = menuModal.getAttribute("data-visible");
 
-  // if the menu is closed, open it 
-  if (visibility === "false") {
-      menuModal.setAttribute("data-visible", true);
-      body.classList.add('dark-background');
-  } 
-})
+    // if the menu is open, close it 
+    if (visibility === "true") {
+        menuModal.setAttribute("data-visible", false);
+        body.classList.remove('blurred-background');
+    } 
+  })
 
-// when the resume button is clicked 
-resumeButton.addEventListener("click", () => {
-  const visibility = menuModal.getAttribute("data-visible");
+  // when the new game button is clicked 
+  newGameButton.addEventListener("click", () => {
+    cardOne = null;
+    cardTwo = null;
+    cardsFlipped = 0;
+    noClicking = false;
+    time = 0;
 
-  // if the menu is open, close it 
-  if (visibility === "true") {
-      menuModal.setAttribute("data-visible", false);
-      body.classList.remove('blurred-background');
-  } 
-})
+    setScore(0);
 
-// when the new game button is clicked 
-newGameButton.addEventListener("click", () => {
-  cardOne = null;
-  cardTwo = null;
-  cardsFlipped = 0;
-  noClicking = false;
-  moves = 0;
-  time = 0;
+    menuModal.setAttribute("data-visible", false);
+    body.classList.remove('dark-background');
+    removeDivsForNumbers();
+    let shuffledNumbers = shuffle(NUMBERS);
+    createDivsForNumbers(shuffledNumbers);
+  })
 
-  menuModal.setAttribute("data-visible", false);
-  body.classList.remove('dark-background');
-  removeDivsForNumbers();
+  // when the restart button is clicked 
+  restartButton.addEventListener("click", () => {
+    cardOne = null;
+    cardTwo = null;
+    cardsFlipped = 0;
+    noClicking = false;
+    time = 0;
+    setScore(0);
+
+    const numDivs = document.querySelectorAll('.game__area-item');
+
+    for (let div of numDivs) {
+      if (div.classList.contains('flipped')) {
+        div.classList.remove('flipped');
+        // div.style.backgroundColor = 'var(--clr-blue-800)';
+        div.textContent='';
+        div.addEventListener('click', handleCardClick);
+      }
+    }
+
+    menuModal.setAttribute('data-visible', false);
+    body.classList.remove('dark-background');
+  })
+
+
+  // when the DOM loads
   let shuffledNumbers = shuffle(NUMBERS);
   createDivsForNumbers(shuffledNumbers);
 })
-
-// when the restart button is clicked 
-restartButton.addEventListener("click", () => {
-  cardOne = null;
-  cardTwo = null;
-  cardsFlipped = 0;
-  noClicking = false;
-  moves = 0;
-  time = 0;
-
-  const numDivs = document.querySelectorAll('.game__area-item');
-
-  for (let div of numDivs) {
-    if (div.classList.contains('flipped')) {
-      div.classList.remove('flipped');
-      div.style.backgroundColor = 'var(--clr-blue-800)';
-      div.textContent='';
-      div.addEventListener('click', handleCardClick);
-    }
-  }
-
-  menuModal.setAttribute('data-visible', false);
-  body.classList.remove('dark-background');
-})
-
-
-// when the DOM loads
-let shuffledNumbers = shuffle(NUMBERS);
-createDivsForNumbers(shuffledNumbers);
