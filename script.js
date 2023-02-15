@@ -123,12 +123,12 @@ function handleCardClick(event) {
   if (cardsFlipped === NUMBERS.length) {
     // end game modal
     const endGame = document.getElementById("end");
-    // endGame.setAttribute("data-visible", true);
-    // body.classList.add('blurred-background'); 
+    endGame.setAttribute("data-visible", true);
+    body.classList.add('dark-background'); 
 
     // player time and moves logic 
-    const endMoves = document.getElementById("player__end-moves");
-    endMoves.textContent = moves;
+    const endMoves = document.getElementById("game-end__moves");
+    endMoves.textContent = moves + ' Moves';
   };
 }
 
@@ -150,7 +150,7 @@ openModalButton.addEventListener("click", () => {
   // if the menu is closed, open it 
   if (visiblity === "false") {
       modalContainer.setAttribute("data-visible", true);
-      body.classList.add('blurred-background');
+      body.classList.add('dark-background');
   } 
 })
 
