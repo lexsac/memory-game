@@ -56,6 +56,14 @@ function createDivsForNumbers(numberArray) {
   }
 }
 
+function removeDivsForNumbers() {
+  let numDivs = document.querySelectorAll('.game__area-item');
+
+  for (let div of numDivs) {
+    div.remove();
+  }
+}
+
 // click on card one, store the class name of that card
 // repeat for card two
 // if cardOneColor === cardTwoColor, remove EventListener on both cards
@@ -133,63 +141,6 @@ function handleCardClick(event) {
 }
 
 /* 
-// Mobile menu logic
-*/
-
-// mobile menu
-const openMenuButton = document.getElementById("button__menu");
-const resumeButton = document.getElementById("button__resume");
-const restartButton = document.getElementById("button__restart");
-const newGameButton = document.getElementById("button__new-game")
-const modalContainer = document.getElementById("modal-container");
-const body = document.querySelector('body');
-
-// when the menu button is clicked 
-openMenuButton.addEventListener("click", () => {
-  const visibility = modalContainer.getAttribute("data-visible");
-
-  // if the menu is closed, open it 
-  if (visibility === "false") {
-      modalContainer.setAttribute("data-visible", true);
-      body.classList.add('dark-background');
-  } 
-})
-
-// when the resume button is clicked 
-resumeButton.addEventListener("click", () => {
-  const visibility = modalContainer.getAttribute("data-visible");
-
-  // if the menu is open, close it 
-  if (visibility === "true") {
-      modalContainer.setAttribute("data-visible", false);
-      body.classList.remove('blurred-background');
-  } 
-})
-
-// when the new game button is clicked 
-newGameButton.addEventListener("click", () => {
-  cardOne = null;
-  cardTwo = null;
-  cardsFlipped = 0;
-  noClicking = false;
-  moves = 0;
-  time = 0;
-
-  let shuffledNumbers = shuffle(NUMBERS);
-  createDivsForNumbers(shuffledNumbers);
-})
-
-// when the restart button is clicked 
-restartButton.addEventListener("click", () => {
-  cardOne = null;
-  cardTwo = null;
-  cardsFlipped = 0;
-  noClicking = false;
-  moves = 0;
-  time = 0;
-})
-
-/* 
 // Player time and number of moves logic
 */
 
@@ -213,6 +164,80 @@ setInterval(() => {
   // updates the clock display with the formatted time
   playerTime.textContent = formattedTime;
 }, 1000);
+
+/* 
+// Mobile menu logic
+*/
+
+// mobile menu
+const openMenuButton = document.getElementById("button__menu");
+const resumeButton = document.getElementById("button__resume");
+const restartButton = document.getElementById("button__restart");
+const newGameButton = document.getElementById("button__new-game")
+const menuModal = document.getElementById("menu");
+const body = document.querySelector('body');
+
+// when the menu button is clicked 
+openMenuButton.addEventListener("click", () => {
+  const visibility = menuModal.getAttribute("data-visible");
+
+  // if the menu is closed, open it 
+  if (visibility === "false") {
+      menuModal.setAttribute("data-visible", true);
+      body.classList.add('dark-background');
+  } 
+})
+
+// when the resume button is clicked 
+resumeButton.addEventListener("click", () => {
+  const visibility = menuModal.getAttribute("data-visible");
+
+  // if the menu is open, close it 
+  if (visibility === "true") {
+      menuModal.setAttribute("data-visible", false);
+      body.classList.remove('blurred-background');
+  } 
+})
+
+// when the new game button is clicked 
+newGameButton.addEventListener("click", () => {
+  cardOne = null;
+  cardTwo = null;
+  cardsFlipped = 0;
+  noClicking = false;
+  moves = 0;
+  time = 0;
+
+  menuModal.setAttribute("data-visible", false);
+  body.classList.remove('dark-background');
+  removeDivsForNumbers();
+  let shuffledNumbers = shuffle(NUMBERS);
+  createDivsForNumbers(shuffledNumbers);
+})
+
+// when the restart button is clicked 
+restartButton.addEventListener("click", () => {
+  cardOne = null;
+  cardTwo = null;
+  cardsFlipped = 0;
+  noClicking = false;
+  moves = 0;
+  time = 0;
+
+  const numDivs = document.querySelectorAll('.game__area-item');
+
+  for (let div of numDivs) {
+    if (div.classList.contains('flipped')) {
+      div.classList.remove('flipped');
+      div.style.backgroundColor = 'var(--clr-blue-800)';
+      div.textContent='';
+      div.addEventListener('click', handleCardClick);
+    }
+  }
+
+  menuModal.setAttribute('data-visible', false);
+  body.classList.remove('dark-background');
+})
 
 
 // when the DOM loads
