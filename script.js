@@ -124,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function() {
           cardOne.classList.remove("flipped");
           cardTwo.classList.remove("flipped");
 
-          cardOne.style.backgroundColor = 'var(--clr-blue-800)';
-          cardTwo.style.backgroundColor = 'var(--clr-blue-800)';
+          cardOne.removeAttribute('style');
+          cardTwo.removeAttribute('style');
 
           cardOne = null;
           cardTwo = null;
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // player time and moves logic 
       const endMoves = document.getElementById("game-end__moves");
-      endMoves.textContent = moves + ' Moves';
+      endMoves.textContent = currentScore + ' Moves';
     };
   }
 
@@ -173,16 +173,17 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 1000);
 
   /* 
-  // Mobile menu logic
+  // Button logic (resume, restart, & new game)
   */
 
   // mobile menu
   const openMenuButton = document.getElementById("button__menu");
   const resumeButton = document.getElementById("button__resume");
-  const restartButton = document.getElementById("button__restart");
-  const newGameButton = document.getElementById("button__new-game")
+  const restartButtons = document.querySelectorAll("#button__restart");
+  const newGameButtons = document.querySelectorAll("#button__new-game")
   const menuModal = document.getElementById("menu");
   const body = document.querySelector('body');
+  const endModal = document.getElementById("end");
 
   // when the menu button is clicked 
   openMenuButton.addEventListener("click", () => {
@@ -198,55 +199,59 @@ document.addEventListener("DOMContentLoaded", function() {
   // when the resume button is clicked 
   resumeButton.addEventListener("click", () => {
     const visibility = menuModal.getAttribute("data-visible");
+    const divs = document.querySelectorAll(".game__area-item");
 
     // if the menu is open, close it 
     if (visibility === "true") {
         menuModal.setAttribute("data-visible", false);
-        body.classList.remove('blurred-background');
+        body.classList.remove('dark-background');
     } 
   })
 
-  // when the new game button is clicked 
-  newGameButton.addEventListener("click", () => {
-    cardOne = null;
-    cardTwo = null;
-    cardsFlipped = 0;
-    noClicking = false;
-    time = 0;
+  for (let button of newGameButtons) {
+    button.addEventListener("click", () => {
+      cardOne = null;
+      cardTwo = null;
+      cardsFlipped = 0;
+      noClicking = false;
+      time = 0;
 
-    setScore(0);
+      setScore(0);
 
-    menuModal.setAttribute("data-visible", false);
-    body.classList.remove('dark-background');
-    removeDivsForNumbers();
-    let shuffledNumbers = shuffle(NUMBERS);
-    createDivsForNumbers(shuffledNumbers);
-  })
+      menuModal.setAttribute("data-visible", false);
+      endModal.setAttribute("data-visible", false);
+      body.classList.remove('dark-background');
+      removeDivsForNumbers();
+      let shuffledNumbers = shuffle(NUMBERS);
+      createDivsForNumbers(shuffledNumbers);
+    });
+  }
 
-  // when the restart button is clicked 
-  restartButton.addEventListener("click", () => {
-    cardOne = null;
-    cardTwo = null;
-    cardsFlipped = 0;
-    noClicking = false;
-    time = 0;
-    setScore(0);
+  for (let button of restartButtons) {
+    button.addEventListener("click", () => {
+      cardOne = null;
+      cardTwo = null;
+      cardsFlipped = 0;
+      noClicking = false;
+      time = 0;
+      setScore(0);
 
-    const numDivs = document.querySelectorAll('.game__area-item');
+      const numDivs = document.querySelectorAll('.game__area-item');
 
-    for (let div of numDivs) {
-      if (div.classList.contains('flipped')) {
-        div.classList.remove('flipped');
-        // div.style.backgroundColor = 'var(--clr-blue-800)';
-        div.textContent='';
-        div.addEventListener('click', handleCardClick);
+      for (let div of numDivs) {
+        if (div.classList.contains('flipped')) {
+          div.classList.remove('flipped');
+          div.textContent='';
+          div.removeAttribute('style');
+          div.addEventListener('click', handleCardClick);
+        }
       }
-    }
 
-    menuModal.setAttribute('data-visible', false);
-    body.classList.remove('dark-background');
-  })
-
+      body.classList.remove('dark-background');
+      menuModal.setAttribute('data-visible', false);
+      endModal.setAttribute("data-visible", false);
+    });
+  }
 
   // when the DOM loads
   let shuffledNumbers = shuffle(NUMBERS);
