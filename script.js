@@ -1,16 +1,54 @@
 document.addEventListener("DOMContentLoaded", function() {
   const gameContainer = document.getElementById("game");
+  const body = document.querySelector('body');
   let cardOne = null;
   let cardTwo = null;
   let cardsFlipped = 0;
   let noClicking = false;
   let currentScore = 0;
-  let time = 0;
+  let elapsedTime = 0;
+  let formattedTime;
+  let intervalId;
+  // let timerIsRunning = true;
 
   const NUMBERS = [
     1,2,3,4,5,6,7,8,
     1,2,3,4,5,6,7,8
   ];
+
+  /* 
+  // Player time and number of moves logic
+  */
+
+  const playerScore = document.getElementById("player__moves-dynamic");
+  playerScore.textContent = currentScore;
+
+  const playerTime = document.getElementById("player__time-dynamic");
+
+  function startTimer() {
+    intervalId = setInterval(() => {
+    elapsedTime++;
+
+    // calculates the minutes and seconds
+    const minutes = Math.floor(elapsedTime / 60).toString().padStart(1, "0");
+    const seconds = (elapsedTime % 60).toString().padStart(2, "0");
+
+    // formats the time as MM:SS
+    formattedTime = `${minutes}:${seconds}`;
+
+    // updates the clock display with the formatted time
+    playerTime.textContent = formattedTime;
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(intervalId);
+  }
+
+  function restartTimer() {
+    elapsedTime = 0;
+    startTimer();
+  }
 
   /* 
   // Game logic
@@ -40,6 +78,8 @@ document.addEventListener("DOMContentLoaded", function() {
   // loops over array, creating a new div with class equal to number value
   // adds click event listener to each div
   function createDivsForNumbers(numberArray) {
+    startTimer();
+
     for (let number of numberArray) {
       // create a new div
       const newDiv = document.createElement("div");
@@ -137,40 +177,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cardsFlipped === NUMBERS.length) {
       // end game modal
+      stopTimer();
       const endGame = document.getElementById("end");
       endGame.setAttribute("data-visible", true);
-      body.classList.add('dark-background'); 
+      body.classList.add('dark-background');
+
+      const playerTime = document.getElementById("game-end__time");
+      playerTime.textContent = formattedTime;
 
       // player time and moves logic 
       const endMoves = document.getElementById("game-end__moves");
       endMoves.textContent = currentScore + ' Moves';
     };
   }
-
-  /* 
-  // Player time and number of moves logic
-  */
-
-  const playerScore = document.getElementById("player__moves-dynamic");
-  playerScore.textContent = currentScore;
-
-  const playerTime = document.getElementById("player__time-dynamic");
-
-  // updates the clock every second
-  setInterval(() => {
-    // increments the time by one second
-    time++;
-
-    // calculates the minutes and seconds
-    const minutes = Math.floor(time / 60).toString().padStart(1, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
-
-    // formats the time as MM:SS
-    const formattedTime = `${minutes}:${seconds}`;
-
-    // updates the clock display with the formatted time
-    playerTime.textContent = formattedTime;
-  }, 1000);
 
   /* 
   // Button logic (resume, restart, & new game)
@@ -182,30 +201,23 @@ document.addEventListener("DOMContentLoaded", function() {
   const restartButtons = document.querySelectorAll("#button__restart");
   const newGameButtons = document.querySelectorAll("#button__new-game")
   const menuModal = document.getElementById("menu");
-  const body = document.querySelector('body');
   const endModal = document.getElementById("end");
 
   // when the menu button is clicked 
   openMenuButton.addEventListener("click", () => {
-    const visibility = menuModal.getAttribute("data-visible");
+    stopTimer();
 
     // if the menu is closed, open it 
-    if (visibility === "false") {
-        menuModal.setAttribute("data-visible", true);
-        body.classList.add('dark-background');
-    } 
+    menuModal.setAttribute("data-visible", true);
+    body.classList.add('dark-background');
   })
 
   // when the resume button is clicked 
   resumeButton.addEventListener("click", () => {
-    const visibility = menuModal.getAttribute("data-visible");
-    const divs = document.querySelectorAll(".game__area-item");
-
+    startTimer();
     // if the menu is open, close it 
-    if (visibility === "true") {
-        menuModal.setAttribute("data-visible", false);
-        body.classList.remove('dark-background');
-    } 
+    menuModal.setAttribute("data-visible", false);
+    body.classList.remove('dark-background');
   })
 
   for (let button of newGameButtons) {
@@ -214,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function() {
       cardTwo = null;
       cardsFlipped = 0;
       noClicking = false;
-      time = 0;
+      elapsedTime = 0;
 
       setScore(0);
 
@@ -224,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function() {
       removeDivsForNumbers();
       let shuffledNumbers = shuffle(NUMBERS);
       createDivsForNumbers(shuffledNumbers);
+      restartTimer();
     });
   }
 
@@ -233,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
       cardTwo = null;
       cardsFlipped = 0;
       noClicking = false;
-      time = 0;
+      elapsedTime = 0;
       setScore(0);
 
       const numDivs = document.querySelectorAll('.game__area-item');
@@ -250,6 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
       body.classList.remove('dark-background');
       menuModal.setAttribute('data-visible', false);
       endModal.setAttribute("data-visible", false);
+      restartTimer();
     });
   }
 
