@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
   */
 
   const playerScore = document.getElementById("player__moves-dynamic");
-  playerScore.textContent = currentScore;
-
   const playerTime = document.getElementById("player__time-dynamic");
+
+  playerScore.textContent = currentScore;
 
   function startTimer() {
     intervalId = setInterval(() => {
@@ -76,23 +76,16 @@ document.addEventListener("DOMContentLoaded", function() {
     return array;
   }
 
-  // loops over array, creating a new div with class equal to number value
-  // adds click event listener to each div
   function createDivsForNumbers(numberArray) {
 
     for (let number of numberArray) {
-      // create a new div
       const newDiv = document.createElement("div");
 
-      // give it a class attribute for the value we are looping over
       newDiv.classList.add(number);
       newDiv.classList.add('flex');
       newDiv.classList.add('game__area-item');
-
-      // call a function handleCardClick when a div is clicked on
       newDiv.addEventListener("click", handleCardClick);
 
-      // append the div to the element with an id of game
       gameContainer.append(newDiv);
     }
   }
@@ -110,9 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("player__moves-dynamic").innerText = currentScore;
   }
 
-  // click on card one, store the class name of that card
-  // repeat for card two
-  // if cardOneColor === cardTwoColor, remove EventListener on both cards
   function handleCardClick(event) {
     if (noClicking) return;
     if (event.target.classList.contains('flipped')) return;
@@ -192,10 +182,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   /* 
-  // Button logic (resume, restart, & new game)
+  // Buttons logic (inc. mobile menu logic)
   */
 
-  // mobile menu
   const openMenuButton = document.getElementById("button__menu");
   const resumeButton = document.getElementById("button__resume");
   const restartButtons = document.querySelectorAll("#button__restart");
@@ -203,23 +192,23 @@ document.addEventListener("DOMContentLoaded", function() {
   const menuModal = document.getElementById("menu");
   const endModal = document.getElementById("end");
 
-  // when the menu button is clicked 
+  // when mobile menu button is clicked 
   openMenuButton.addEventListener("click", () => {
     stopTimer();
 
-    // if the menu is closed, open it 
     menuModal.setAttribute("data-visible", true);
     body.classList.add('dark-background');
   })
 
-  // when the resume button is clicked 
+  // when mobile resume button is clicked 
   resumeButton.addEventListener("click", () => {
     startTimer();
-    // if the menu is open, close it 
+
     menuModal.setAttribute("data-visible", false);
     body.classList.remove('dark-background');
   })
 
+  // when new game buttons are clicked
   for (let button of newGameButtons) {
     button.addEventListener("click", () => {
       cardOne = null;
@@ -227,7 +216,6 @@ document.addEventListener("DOMContentLoaded", function() {
       cardsFlipped = 0;
       noClicking = false;
       elapsedTime = 0;
-
       setScore(0);
 
       menuModal.setAttribute("data-visible", false);
@@ -240,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // when restart buttons are clicked
   for (let button of restartButtons) {
     button.addEventListener("click", () => {
       cardOne = null;
