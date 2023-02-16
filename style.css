@@ -293,11 +293,6 @@ body {
   aspect-ratio: 1;
 }
 
-.game__area div:hover,
-.game__area div:focus {
-  background: var(--clr-blue-500);
-}
-
 .game__area-item.flex {
   justify-content: center;
   align-items: center;
@@ -308,7 +303,12 @@ body {
     max-width: 33.25rem;
     margin-inline: auto; 
     font-size: var(--fs-900);
-  }  
+  } 
+
+  .game__area div:hover,
+  .game__area div:focus {
+    background: var(--clr-blue-500);
+}
 }
 
 /* ------------------------- */
