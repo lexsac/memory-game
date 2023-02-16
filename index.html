@@ -23,15 +23,15 @@
       <h1 class="header__title | lowercase text-blue-800">memory</h1>
       <button class="header__button-menu | btn btn-orange" id="button__menu">Menu</button>
       <div class="header__button-group | flex">
-        <button class="header__button-restart | btn btn-orange" id="button__restart">Restart</button>
-        <button class="header__button-new-game | btn btn-blue" id="button__new-game">New Game</button>
+        <button class="button-restart | btn btn-orange" id="button__restart">Restart</button>
+        <button class="button-new-game | btn btn-blue" id="button__new-game">New Game</button>
       </div>
   
       <!-- Menu modal -->
-      <div class="modal flex" id="menu" data-visible="false">
-          <button class="header__button-restart | btn btn-orange" id="button__restart">Restart</button>
-          <button class="header__button-new-game | btn btn-blue" id="button__new-game">New Game</button>
-          <button class="header__button-resume | btn btn-blue" id="button__resume">Resume Game</button>
+      <div class="modal menu | flex" id="menu" data-visible="false">
+          <button class="button-restart | btn btn-orange" id="button__restart">Restart</button>
+          <button class="button-new-game | btn btn-blue" id="button__new-game">New Game</button>
+          <button class="button-resume | btn btn-blue" id="button__resume">Resume Game</button>
       </div>
     </header>
   
@@ -55,7 +55,7 @@
       </section>
   
       <!-- End game modal -->
-      <section class="end-results | modal" id="end" data-visible="false">
+      <section class="modal end-results" id="end" data-visible="false">
         <h1 class="end-results__headline | modal-headline">You did it!</h1>
         <p class="end-results__description | modal-description">Game over! Here's how you got on...</p>
         <div class="end-results__player-info end-results__player-info-time | flex modal-info-box">
@@ -67,8 +67,8 @@
           <p class="end-results__moves-dyn" id="game-end__moves"></p>
         </div>
         <div class="end-results__btns | flex">
-          <button id="button__restart" class="btn btn-orange">Restart</a>
-          <button id="button__new-game" class="btn btn-blue">Setup New Game</a>
+          <button id="button__restart" class="button-restart button-end | btn btn-orange">Restart</a>
+          <button id="button__new-game" class="button-new-game button-end | btn btn-blue">Setup New Game</a>
         </div>
       </section>
   
