@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function restartTimer() {
+    stopTimer();
     elapsedTime = 0;
     startTimer();
   }
@@ -78,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // loops over array, creating a new div with class equal to number value
   // adds click event listener to each div
   function createDivsForNumbers(numberArray) {
-    startTimer();
 
     for (let number of numberArray) {
       // create a new div
@@ -270,4 +270,5 @@ document.addEventListener("DOMContentLoaded", function() {
   // when the DOM loads
   let shuffledNumbers = shuffle(NUMBERS);
   createDivsForNumbers(shuffledNumbers);
+  startTimer();
 })
