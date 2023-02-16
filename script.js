@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   playerScore.textContent = currentScore;
 
-  function startTimer() {
+  const startTimer = () => {
     intervalId = setInterval(() => {
     elapsedTime++;
 
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 1000);
   }
 
-  function stopTimer() {
+  const stopTimer = () => {
     clearInterval(intervalId);
   }
 
-  function restartTimer() {
+  const restartTimer = () => {
     stopTimer();
     elapsedTime = 0;
     startTimer();
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
   */
 
   // uses Fisher Yates algorithm to return shuffled array
-  function shuffle(array) {
+  const shuffle = (array) => {
     let counter = array.length;
 
     // While there are elements in the array
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return array;
   }
 
-  function createDivsForNumbers(numberArray) {
+  const createDivsForNumbers = (numberArray) => {
 
     for (let number of numberArray) {
       const newDiv = document.createElement("div");
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  function removeDivsForNumbers() {
+  const removeDivsForNumbers = () => {
     let numDivs = document.querySelectorAll('.game__area-item');
 
     for (let div of numDivs) {
@@ -98,12 +98,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  function setScore(newScore) {
+  const setScore = (newScore) => {
     currentScore = newScore;
     document.getElementById("player__moves-dynamic").innerText = currentScore;
   }
 
-  function handleCardClick(event) {
+  const resetGame = () => {
+    cardOne = null;
+    cardTwo = null;
+    cardsFlipped = 0;
+    noClicking = false;
+    elapsedTime = 0;
+    setScore(0);
+  }
+
+  handleCardClick = (event) => {
     if (noClicking) return;
     if (event.target.classList.contains('flipped')) return;
 
@@ -211,16 +220,12 @@ document.addEventListener("DOMContentLoaded", function() {
   // when new game buttons are clicked
   for (let button of newGameButtons) {
     button.addEventListener("click", () => {
-      cardOne = null;
-      cardTwo = null;
-      cardsFlipped = 0;
-      noClicking = false;
-      elapsedTime = 0;
-      setScore(0);
+      resetGame();
 
       menuModal.setAttribute("data-visible", false);
       endModal.setAttribute("data-visible", false);
       body.classList.remove('dark-background');
+
       removeDivsForNumbers();
       let shuffledNumbers = shuffle(NUMBERS);
       createDivsForNumbers(shuffledNumbers);
@@ -231,12 +236,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // when restart buttons are clicked
   for (let button of restartButtons) {
     button.addEventListener("click", () => {
-      cardOne = null;
-      cardTwo = null;
-      cardsFlipped = 0;
-      noClicking = false;
-      elapsedTime = 0;
-      setScore(0);
+      resetGame();
 
       const numDivs = document.querySelectorAll('.game__area-item');
 
